@@ -68,6 +68,80 @@ JOIN temp_table ON product.model = temp_table.model
 
 WHERE maker = 'B'
 
+Exercise: 8 
+Find the makers producing PCs but not laptops.
+
+Answer:
+
+SELECT DISTINCT maker FROM Product 
+WHERE type = 'PC'
+EXCEPT
+SELECT DISTINCT maker FROM Product 
+WHERE type = 'Laptop'
+
+
+Exercise: 9 
+Find the makers of PCs with a processor speed of 450 MHz or more. Result set: maker.
+
+Answer:
+
+SELECT DISTINCT Product.maker FROM Product 
+JOIN 
+PC ON Product.model = PC.model
+WHERE PC.speed >= 450
+
+Exercise: 10 
+Find the printer models having the highest price. Result set: model, price.
+
+Answer:
+
+SELECT model, price FROM Printer
+WHERE price IN (SELECT MAX(price) FROM Printer)
+
+Exercise: 11 
+Find out the average speed of PCs.
+
+Answer:
+
+SELECT AVG(speed) FROM PC
+
+Exercise: 12 
+Find out the average speed of the laptops priced over $1000.
+
+Answer:
+
+SELECT AVG(speed) FROM Laptop
+WHERE price > 1000
+
+Exercise: 13 
+Find out the average speed of the PCs produced by maker A.
+
+Answer:
+
+SELECT AVG(speed) FROM PC
+JOIN Product ON product.model = PC.model
+WHERE Product.maker = 'A'
+
+Exercise: 14 
+For the ships in the Ships table that have at least 10 guns, get the class, name, and country.
+
+Answer:
+
+Select s.class, s.name, country FROM Ships s
+JOIN Classes c ON s.class = c.class
+WHERE numGuns >= 10
+
+Exercise: 15 
+Get hard drive capacities that are identical for two or more PCs.
+Result set: hd.
+
+Answer:
+
+SELECT hd FROM PC
+GROUP BY hd 
+HAVING COUNT(hd) > =2
+
+
 
 
 
