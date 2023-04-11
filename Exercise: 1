@@ -13,3 +13,62 @@ Answer:
 
 SELECT model, speed, hd from PC WHERE price < 500
 
+Exercise: 2
+List all printer makers. Result set: maker.
+
+SELECT DISTINCT maker from Product WHERE type='Printer'
+
+Exercise: 3 
+Find the model number, RAM and screen size of the laptops with prices over $1000.
+
+Answer:
+
+SELECT model, ram, screen FROM Laptop WHERE price > 1000
+
+
+Exercise: 4
+Find all records from the Printer table containing data about color printers.
+
+Answer:
+
+SELECT * FROM Printer where color='y'
+
+Exercise: 5 
+Find the model number, speed and hard drive capacity of PCs cheaper than $600 having a 12x or a 24x CD drive.
+
+Answer:
+
+SELECT model, speed, hd FROM PC WHERE price < 600 AND (cd='12x' OR cd='24x')
+
+Exercise: 6 
+For each maker producing laptops with a hard drive capacity of 10 Gb or higher, find the speed of such laptops. Result set: maker, speed.
+
+SELECT DISTINCT p.maker, l.speed FROM
+Product p JOIN 
+Laptop l
+ON p.model = l.model
+WHERE hd >= 10
+
+
+Exercise: 7 
+Get the models and prices for all commercially available products (of any type) produced by maker B.
+
+Answer:
+
+WITH temp_table AS
+(SELECT model, price FROM PC
+UNION
+SELECT model, price FROM Laptop
+UNION 
+SELECT model, price FROM Printer)
+
+SELECT product.model, temp_table.price FROM product
+
+JOIN temp_table ON product.model = temp_table.model
+
+WHERE maker = 'B'
+
+
+
+
+
